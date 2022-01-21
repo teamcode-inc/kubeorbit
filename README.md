@@ -1,6 +1,12 @@
-<a href="https://kubeorbit.io">
-  <img src="https://raw.githubusercontent.com/teamcode-inc/public-resources/main/kubeOrbit_log.svg" width="400px">
-</a>
+<p>
+    <a href="https://kubeorbit.io/#gh-light-mode-only">
+      <img src="https://raw.githubusercontent.com/teamcode-inc/public-resources/main/kubeOrbit_log.svg" width="400px">
+    </a>
+    <a href="https://kubeorbit.io/#gh-dark-mode-only">
+      <img src="https://raw.githubusercontent.com/teamcode-inc/public-resources/main/KubeOrbit_for_Dark_Mode.svg" width="400px">
+    </a>
+</p>
+
 
 Like KubeOrbit idea? ⭐ Give us a GitHub Star! ⭐
 
