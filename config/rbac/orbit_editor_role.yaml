@@ -1,0 +1,24 @@
+# permissions for end users to edit orbits.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: orbit-editor-role
+rules:
+- apiGroups:
+  - network.kubeorbit.io
+  resources:
+  - orbits
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - network.kubeorbit.io
+  resources:
+  - orbits/status
+  verbs:
+  - get

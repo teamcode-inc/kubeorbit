@@ -1,0 +1,17 @@
+apiVersion: network.kubeorbit.io/v1alpha1
+kind: ServiceRoute
+metadata:
+  name: serviceroute-sample
+  namespace: tc-apps
+spec:
+  name: pod-svc
+  trafficRoutes:
+    routes:
+      - name: v1
+        labels:
+          version: v1
+        headers:
+          version:
+            exact: v1
+    default:
+      version: base

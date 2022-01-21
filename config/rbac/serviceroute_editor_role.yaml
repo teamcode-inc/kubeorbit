@@ -1,0 +1,24 @@
+# permissions for end users to edit serviceroutes.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: serviceroute-editor-role
+rules:
+- apiGroups:
+  - network.kubeorbit.io
+  resources:
+  - serviceroutes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - network.kubeorbit.io
+  resources:
+  - serviceroutes/status
+  verbs:
+  - get

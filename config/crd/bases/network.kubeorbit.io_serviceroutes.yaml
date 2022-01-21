@@ -1,0 +1,104 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.7.0
+  creationTimestamp: null
+  name: serviceroutes.network.kubeorbit.io
+spec:
+  group: network.kubeorbit.io
+  names:
+    kind: ServiceRoute
+    listKind: ServiceRouteList
+    plural: serviceroutes
+    singular: serviceroute
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: ServiceRoute is the Schema for the serviceroutes API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ServiceRouteSpec defines the desired state of ServiceRoute
+            properties:
+              name:
+                type: string
+              trafficRoutes:
+                description: 'INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
+                  Important: Run "make" to regenerate code after modifying this file'
+                properties:
+                  default:
+                    additionalProperties:
+                      type: string
+                    type: object
+                  routes:
+                    items:
+                      properties:
+                        headers:
+                          additionalProperties:
+                            properties:
+                              exact:
+                                description: exact string match
+                                type: string
+                              prefix:
+                                description: prefix-based match
+                                type: string
+                              regex:
+                                description: ECMAscript style regex-based match
+                                type: string
+                              suffix:
+                                description: suffix-based match.
+                                type: string
+                            type: object
+                          type: object
+                        labels:
+                          additionalProperties:
+                            type: string
+                          description: Labels apply a filter over the endpoints of
+                            a service in the service registry. See route rules for
+                            examples of usage.
+                          type: object
+                        name:
+                          description: Name of the subset. The service name and the
+                            subset name can be used for traffic splitting in a route
+                            rule.
+                          type: string
+                      type: object
+                    type: array
+                required:
+                - default
+                - routes
+                type: object
+            required:
+            - name
+            - trafficRoutes
+            type: object
+          status:
+            description: ServiceRouteStatus defines the observed state of ServiceRoute
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
