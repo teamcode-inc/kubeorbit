@@ -19,15 +19,18 @@ package controllers
 import (
 	"context"
 	"fmt"
+	"log"
+
 	"github.com/google/go-cmp/cmp"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"log"
+	"k8s.io/client-go/tools/record"
 
 	"github.com/go-logr/logr"
 	"github.com/gogo/protobuf/types"
 	"istio.io/api/networking/v1alpha3"
 	istiov1 "istio.io/client-go/pkg/apis/networking/v1alpha3"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	orbitv1alpha1 "kubeorbit.io/api/v1alpha1"
@@ -38,8 +41,9 @@ import (
 // OrbitReconciler reconciles a Orbit object
 type OrbitReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
-	Log    logr.Logger
+	Scheme   *runtime.Scheme
+	Log      logr.Logger
+	Recorder record.EventRecorder
 }
 
 //+kubebuilder:rbac:groups=network.kubeorbit.io,resources=orbits,verbs=get;list;watch;create;update;patch;delete
@@ -64,10 +68,20 @@ func (r *OrbitReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl
 		log.Println(err, "unable to fetch object")
 	} else {
 		if err := r.reconcileEnvoyFilter(obj, req); err != nil {
+			obj.Status.Status = "failed"
+			if err := r.Status().Update(context.Background(), obj); err != nil {
+				log.Println(err, "unable to update status")
+			}
+			r.Recorder.Event(obj, corev1.EventTypeWarning, "FailedCreate", "Unable to create EnvoyFilter on kubeorbit")
 			return ctrl.Result{}, fmt.Errorf("reconcileEnvoyFilter failed: %w", err)
 		}
 	}
+	obj.Status.Status = "success"
+	if err := r.Status().Update(context.Background(), obj); err != nil {
+		log.Println(err, "unable to update status")
 
+	}
+	r.Recorder.Event(obj, corev1.EventTypeNormal, "Created", "EnvoyFilter created successfully on kubeorbit")
 	return ctrl.Result{}, nil
 }
 
@@ -113,6 +127,7 @@ func (r *OrbitReconciler) reconcileEnvoyFilter(orbit *orbitv1alpha1.Orbit, req c
 			clone.Spec = newSpec
 			err = r.Update(context.TODO(), clone)
 			if err != nil {
+				r.Recorder.Event(orbit, corev1.EventTypeWarning, "FailedUpdate", "Unable to update EnvoyFilter on kubeorbit")
 				return fmt.Errorf("EnvoyFilter %s.%s update error: %w", envoyName, orbit.Namespace, err)
 			}
 			r.Log.WithValues("orbit", fmt.Sprintf("%s.%s", orbit.Name, orbit.Namespace)).

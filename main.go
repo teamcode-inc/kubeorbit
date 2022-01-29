@@ -18,9 +18,7 @@ package main
 
 import (
 	"flag"
-	v1 "kubeorbit.io/api/v1"
 	"os"
-	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	// to ensure that exec-entrypoint and run can make use of them.
@@ -33,7 +31,9 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
+	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
+	v1 "kubeorbit.io/api/v1"
 	orbitv1alpha1 "kubeorbit.io/api/v1alpha1"
 	routev1alpha1 "kubeorbit.io/api/v1alpha1"
 	"kubeorbit.io/controllers"
@@ -84,9 +84,10 @@ func main() {
 	}
 
 	if err = (&controllers.OrbitReconciler{
-		Client: mgr.GetClient(),
-		Scheme: mgr.GetScheme(),
-		Log:    mgr.GetLogger(),
+		Client:   mgr.GetClient(),
+		Scheme:   mgr.GetScheme(),
+		Log:      mgr.GetLogger(),
+		Recorder: mgr.GetEventRecorderFor("orbit-controller"),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Orbit")
 		os.Exit(1)
