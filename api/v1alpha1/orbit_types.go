@@ -40,9 +40,11 @@ type OrbitStatus struct {
 	Status string `json:"Status"`
 }
 
+//+kubebuilder:printcolumn:JSONPath=".status.Status",name=Status,type=string
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
 
+// +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // Orbit is the Schema for the orbits API
 type Orbit struct {
 	metav1.TypeMeta   `json:",inline"`
