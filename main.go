@@ -19,6 +19,7 @@ package main
 import (
 	"flag"
 	v1 "kubeorbit.io/api/v1"
+	controllers "kubeorbit.io/pkg/controllers"
 	"os"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
@@ -36,7 +37,6 @@ import (
 
 	orbitv1alpha1 "kubeorbit.io/api/v1alpha1"
 	routev1alpha1 "kubeorbit.io/api/v1alpha1"
-	"kubeorbit.io/controllers"
 	//+kubebuilder:scaffold:imports
 )
 

@@ -29,6 +29,7 @@ It solves the following problems during integration tests:
 ## Features
 From now on, stop testing your application in local infra naively. Also, no more endless efforts in managing various cloud-based test environments.
 - **Workload tag**: tag your workload by creating a new channel. Then your request can be routed to the right workload replica, where you can work with your mates to test&debug the same feature together.
+- **KubeOrbit CLI**: just using one command, forward the traffic from in-cluster service to local service in a flash, no matter your service discovery is based on Eureka, Consul, Nacos or Kubernetes SVC.
 - **Protocol support**: various protocols based on Layer-7 are supported. HTTP, gRPC, Thrift, Dubbo ...
 - **Cost-effective**: when test your app, you don't need to configure the *entire* infra environment. Save your costs by using less resource according to your *incremental* environment request only. That is, you can have an isolated environment built from your base environment, which is achieved by KubeOrbit's high-scalability.
 
