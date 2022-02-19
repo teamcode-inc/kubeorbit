@@ -30,7 +30,7 @@ func UninstallCommand() *cobra.Command {
 			}
 		},
 	}
-	cmd.Flags().StringVar(&request.Namespace, "namespace", client.GetDefaultNamespace(), "Namespace for uninstall")
+	cmd.Flags().StringVarP(&request.Namespace, "namespace", "n", client.GetDefaultNamespace(), "Namespace for uninstall")
 	cmd.Flags().StringVar(&request.DeploymentName, "deployment", "", "Deployment name for uninstall")
 	return cmd
 }
