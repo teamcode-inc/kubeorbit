@@ -14,6 +14,7 @@ package command
 
 import (
 	"github.com/spf13/cobra"
+	"kubeorbit.io/pkg/cli/client"
 	"kubeorbit.io/pkg/cli/core"
 )
 
@@ -29,7 +30,7 @@ func UninstallCommand() *cobra.Command {
 			}
 		},
 	}
-	cmd.Flags().StringVar(&request.Namespace, "namespace", "default", "Namespace for uninstall")
+	cmd.Flags().StringVarP(&request.Namespace, "namespace", "n", client.GetDefaultNamespace(), "Namespace for uninstall")
 	cmd.Flags().StringVar(&request.DeploymentName, "deployment", "", "Deployment name for uninstall")
 	return cmd
 }

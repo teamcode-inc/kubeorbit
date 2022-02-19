@@ -14,6 +14,7 @@ package command
 
 import (
 	"github.com/spf13/cobra"
+	"kubeorbit.io/pkg/cli/client"
 	"kubeorbit.io/pkg/cli/core"
 )
 
@@ -29,7 +30,7 @@ func ForwardCommand() *cobra.Command {
 			}
 		},
 	}
-	cmd.Flags().StringVarP(&request.Namespace, "namespace", "n", "default", "Namespace for forwarding")
+	cmd.Flags().StringVarP(&request.Namespace, "namespace", "n", client.GetDefaultNamespace(), "Namespace for forwarding")
 	cmd.Flags().StringVar(&request.DeploymentName, "deployment", "", "Deployment Name")
 	cmd.Flags().IntVar(&request.LocalPort, "localPort", 0, "Local Port")
 	cmd.Flags().IntVar(&request.ContainerPort, "containerPort", 0, "Container Port")

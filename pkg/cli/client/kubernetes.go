@@ -57,3 +57,18 @@ func newClusterConfig() (*rest.Config, error) {
 
 	return cfg, nil
 }
+
+// getContextDefaultNamespace returns the default namespace for the current context
+func GetDefaultNamespace() string {
+	clientCfg, err := clientcmd.NewDefaultClientConfigLoadingRules().Load()
+	if err != nil {
+		log.Fatalf("error getting default namespace: %v", err)
+	}
+
+	namespace := clientCfg.Contexts[clientCfg.CurrentContext].Namespace
+
+	if namespace == "" {
+		namespace = "default"
+	}
+	return namespace
+}
