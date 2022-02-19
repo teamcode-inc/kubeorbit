@@ -14,10 +14,18 @@ package command
 
 import (
 	"github.com/spf13/cobra"
+	"k8s.io/client-go/tools/clientcmd"
+	"kubeorbit.io/pkg/cli/client"
 	"kubeorbit.io/pkg/cli/core"
 )
 
 func UninstallCommand() *cobra.Command {
+	clientCfg, _ := clientcmd.NewDefaultClientConfigLoadingRules().Load()
+	namespace := clientCfg.Contexts[clientCfg.CurrentContext].Namespace
+
+	if namespace == "" {
+		namespace = "default"
+	}
 	request := &core.UninstallRequest{}
 	cmd := &cobra.Command{
 		Use:  "uninstall",
@@ -29,7 +37,7 @@ func UninstallCommand() *cobra.Command {
 			}
 		},
 	}
-	cmd.Flags().StringVar(&request.Namespace, "namespace", "default", "Namespace for uninstall")
+	cmd.Flags().StringVar(&request.Namespace, "namespace", client.GetDefaultNamespace(), "Namespace for uninstall")
 	cmd.Flags().StringVar(&request.DeploymentName, "deployment", "", "Deployment name for uninstall")
 	return cmd
 }
