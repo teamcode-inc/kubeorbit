@@ -19,7 +19,6 @@ import (
 )
 
 func ForwardCommand() *cobra.Command {
-
 	request := &core.ForwardRequest{}
 	cmd := &cobra.Command{
 		Use:  "forward",
