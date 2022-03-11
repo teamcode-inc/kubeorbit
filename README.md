@@ -16,7 +16,7 @@ Like KubeOrbit idea? ⭐ Give us a GitHub Star! ⭐
 [![Discord channel](https://img.shields.io/discord/930779108818956298?style=flat-square)](https://discord.gg/5XaTS9VArf)
 
 
-**KubeOrbit** is an open-source abstraction layer library that turns easy apps testing&debuging on Kubernetes in a new way. Our KubeOrbit is meant to create a channel automatically. You can *test* your *cloud-native* applications through this channel in a *hands-free* style.
+**KubeOrbit** is an open-source tool that turns easy apps testing&debuging on Kubernetes in a new way. Our KubeOrbit is meant to create a channel automatically. You can *test* your *cloud-native* applications through this channel in a *hands-free* style.
 
 It solves the following problems during integration tests:
 - Under limited resource and restricted environment, developers in a team may be blocked by others who are testing their own functionalities, and it slows down the development progress.
