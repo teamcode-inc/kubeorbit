@@ -94,8 +94,8 @@ func (c *ChannelListener) ForwardToLocal() error {
 		localConn, err := net.Dial("tcp", localPortAddress)
 		if err != nil {
 			sshConn.Close()
-			break
 			log.Errorf("connection err %v", err)
+			break
 		}
 		go func() {
 			var wg sync.WaitGroup
