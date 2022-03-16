@@ -36,7 +36,7 @@ From now on, stop testing your application in local infra naively. Also, no more
 With the following tutorials:
 
 **KubeOrbit CLI**:
-* [Getting started](https://www.kubeorbit.io/docs/local-development)
+* [Getting started](https://www.kubeorbit.io/docs/getting-started)
 * [How to build](https://www.kubeorbit.io/docs/how-to-build)
 
 
