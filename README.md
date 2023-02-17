@@ -29,7 +29,7 @@ It solves the following problems during integration tests:
 From now on, stop testing your application in local infra naively. Also, no more endless efforts in managing various cloud-based test environments.
 - **KubeOrbit CLI**: just using one command, forward the traffic from in-cluster service to local service in a flash, no matter your service discovery is based on Eureka, Consul, Nacos or Kubernetes SVC.
 - **Protocol support**: various protocols based on Layer-7 are supported. HTTP, gRPC, Thrift, Dubbo ...
-- **Workload tag**: tag your workload by creating a new channel. Then your request can be routed to the right workload replica, where you can work with your mates to test&debug the same feature together.
+- **Workload label**: Label your workload by creating a new channel so that your request can be directed to the appropriate workload replica. This enables you to collaborate with your colleagues to test and debug the same feature..
 
 
 ## Getting Started
